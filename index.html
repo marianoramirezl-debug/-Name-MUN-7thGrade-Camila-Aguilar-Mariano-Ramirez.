@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Safe Spaces | Golden Valley School</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      background: #ffffff;
+      padding: 20px 7%;
+      border-bottom: 1px solid #eaeaea;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      color: #12519C;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #12519C;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #27A0DB;
+    }
+
+    /* THREE COLOR BAR */
+    .color-bar {
+      height: 5px;
+      display: flex;
+    }
+
+    .blue-dark {
+      background: #12519C;
+      flex: 1;
+    }
+
+    .blue-light {
+      background: #27A0DB;
+      flex: 1;
+    }
+
+    .yellow {
+      background: #F6C401;
+      flex: 0.35;
+    }
+
+    /* GENERAL */
+    section {
+      padding: 90px 7%;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      color: #12519C;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .section-text {
+      max-width: 800px;
+      color: #555;
+      font-size: 17px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      color: #12519C;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 1.05;
+      margin-bottom: 25px;
+    }
+
+    .hero-stat {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 30px;
+      max-width: 650px;
+    }
+
+    .highlight {
+      color: #12519C;
+      font-weight: bold;
+    }
+
+    .button {
+      display: inline-block;
+      background: #27A0DB;
+      color: white;
+      text-decoration: none;
+      padding: 13px 28px;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background: #12519C;
+    }
+
+    /* SAFE SPACE */
+    .signs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 45px;
+    }
+
+    .sign {
+      border-top: 4px solid #27A0DB;
+      padding: 25px;
+      background: #fafafa;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #12519C;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .sign h3 {
+      color: #12519C;
+      margin-bottom: 10px;
+    }
+
+    /* ABOUT */
+    .about {
+      background: #f8fbfd;
+    }
+
+    .about-box {
+      max-width: 850px;
+    }
+
+    /* DASHBOARD */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .chart-card {
+      border: 1px solid #e5e5e5;
+      padding: 20px;
+      background: white;
+      min-height: 330px;
+    }
+
+    .chart-card h3 {
+      color: #12519C;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 250px;
+    }
+
+    /* GET HELP */
+    .help {
+      background: #12519C;
+      color: white;
+    }
+
+    .help .section-title {
+      color: white;
+    }
+
+    .help-content {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .help p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .contact-box {
+      background: white;
+      color: #222;
+      padding: 30px;
+      border-radius: 5px;
+      border-left: 5px solid #F6C401;
+    }
+
+    .contact-box h3 {
+      color: #12519C;
+      margin-bottom: 15px;
+    }
+
+    .contact-box a {
+      color: #12519C;
+      text-decoration: none;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: white;
+      color: #666;
+      border-top: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 800px) {
+      header {
+        padding: 17px 5%;
+      }
+
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        width: 100%;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        font-size: 13px;
+      }
+
+      section {
+        padding: 65px 6%;
+      }
+
+      .hero {
+        min-height: 65vh;
+      }
+
+      .signs,
+      .dashboard-grid,
+      .help-content {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 45px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .chart-card {
+        min-height: 320px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <div class="logo">Safe Spaces</div>
+
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#safe-space">Safe Space</a>
+        <a href="#about">About Us</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#help">Get Help</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- THREE COLOR BAR -->
+  <div class="color-bar">
+    <div class="blue-dark"></div>
+    <div class="blue-light"></div>
+    <div class="yellow"></div>
+  </div>
+
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+
+        <h1>
+          The Modern Slavery and their Dangerous Future
+        </h1>
+
+        <p class="hero-stat">
+          <span class="highlight">Most countries with Modern Slavery</span>
+          face challenges involving human rights, safety, equality, and unfair treatment.
+        </p>
+
+        <a href="#help" class="button">Get help</a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WHAT IS A SAFE SPACE -->
+  <section id="safe-space">
+    <div class="container">
+
+      <h2 class="section-title">What is a Safe Space?</h2>
+
+      <p class="section-text">
+        Somewhere where the human rights are not broke and the people can feel
+        safe to express their opinion.
+      </p>
+
+      <div class="signs">
+
+        <div class="sign">
+          <div class="icon">1</div>
+          <h3>Free Expression</h3>
+          <p>
+            Free expression to talk to others and share ideas without fear.
+          </p>
+        </div>
+
+        <div class="sign">
+          <div class="icon">2</div>
+          <h3>Respect</h3>
+          <p>
+            People treat each other with respect, fairness, and understanding.
+          </p>
+        </div>
+
+        <div class="sign">
+          <div class="icon">3</div>
+          <h3>Security</h3>
+          <p>
+            Security from bad ideas and situations that could harm others.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ABOUT US -->
+  <section class="about" id="about">
+    <div class="container">
+
+      <div class="about-box">
+        <h2 class="section-title">About Us</h2>
+
+        <p class="section-text">
+          We are Mariano Ramirez and Camila Aguilar, and we created a website
+          to post a message around the world and make people aware of unfair
+          treatment and human rights.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- DASHBOARD -->
+  <section id="dashboard">
+    <div class="container">
+
+      <h2 class="section-title">Dashboard</h2>
+
+      <p class="section-text">
+        Sample data showing different aspects of safe spaces and human rights.
+      </p>
+
+      <div class="dashboard-grid">
+
+        <!-- PIE CHART -->
+        <div class="chart-card">
+          <h3>Sample data — Pie Chart</h3>
+
+          <div class="chart-container">
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+
+        <!-- COLUMN CHART -->
+        <div class="chart-card">
+          <h3>Sample data — Column Chart</h3>
+
+          <div class="chart-container">
+            <canvas id="columnChart"></canvas>
+          </div>
+        </div>
+
+        <!-- BAR CHART -->
+        <div class="chart-card">
+          <h3>Sample data — Bar Chart</h3>
+
+          <div class="chart-container">
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- GET HELP -->
+  <section class="help" id="help">
+    <div class="container">
+
+      <div class="help-content">
+
+        <div>
+          <h2 class="section-title">Get Help</h2>
+
+          <p>
+            If you don't feel safe, talk to the counselor
+            <strong>Wellness</strong>.
+          </p>
+
+          <p>
+            You do not have to deal with an unsafe situation alone.
+          </p>
+        </div>
+
+        <div class="contact-box">
+          <h3>Wellness</h3>
+
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:Well.ness@gmail.com">
+              Well.ness@gmail.com
+            </a>
+          </p>
+
+          <p>
+            <strong>Phone:</strong>
+            <a href="tel:88542415">
+              88542415
+            </a>
+          </p>
+
+          <p>
+            <strong>Emergency:</strong> 911
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    Golden Valley School, 2026
+  </footer>
+
+
+  <!-- CHARTS -->
+  <script>
+
+    // PIE CHART
+    new Chart(document.getElementById("pieChart"), {
+      type: "pie",
+      data: {
+        labels: [
+          "Safe",
+          "Needs Support",
+          "Unsafe"
+        ],
+        datasets: [{
+          data: [60, 25, 15],
+          backgroundColor: [
+            "#12519C",
+            "#27A0DB",
+            "#F6C401"
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+
+
+    // COLUMN CHART
+    new Chart(document.getElementById("columnChart"), {
+      type: "bar",
+      data: {
+        labels: [
+          "Respect",
+          "Security",
+          "Expression",
+          "Support"
+        ],
+        datasets: [{
+          label: "Sample data",
+          data: [85, 75, 90, 70],
+          backgroundColor: "#27A0DB"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        }
+      }
+    });
+
+
+    // BAR CHART
+    new Chart(document.getElementById("barChart"), {
+      type: "bar",
+      data: {
+        labels: [
+          "School",
+          "Community",
+          "Online",
+          "Home"
+        ],
+        datasets: [{
+          label: "Sample data",
+          data: [80, 65, 55, 75],
+          backgroundColor: "#12519C"
+        }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            beginAtZero: true,
+            max: 100
+          }
+        }
+      }
+    });
+
+  </script>
+
+</body>
+</html>
